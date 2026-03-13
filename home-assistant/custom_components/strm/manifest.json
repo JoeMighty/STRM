@@ -1,0 +1,14 @@
+{
+  "domain": "strm",
+  "name": "STRM Weather",
+  "version": "1.0.0",
+  "documentation": "https://github.com/JoeMighty/STRM",
+  "issue_tracker": "https://github.com/JoeMighty/STRM/issues",
+  "codeowners": ["@JoeMighty"],
+  "requirements": [],
+  "dependencies": [],
+  "after_dependencies": [],
+  "iot_class": "cloud_polling",
+  "config_flow": true,
+  "integration_type": "service"
+}
