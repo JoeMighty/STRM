@@ -1,0 +1,9 @@
+{
+  "name": "STRM Weather",
+  "render_readme": true,
+  "homeassistant": "2023.1.0",
+  "country": [],
+  "documentation": "https://github.com/JoeMighty/STRM",
+  "codeowners": ["@JoeMighty"],
+  "iot_class": "cloud_polling"
+}

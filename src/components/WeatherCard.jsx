@@ -52,7 +52,7 @@ export default function WeatherCard() {
         {/* Header row */}
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h2 className="font-display text-2xl font-semibold text-mint-green leading-tight">
+            <h2 className="font-display text-2xl font-semibold text-mint-green leading-tight truncate">
               {location.name}
             </h2>
             <p className="text-mint-green/60 text-sm mt-1">{condition}</p>

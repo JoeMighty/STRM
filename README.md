@@ -85,29 +85,50 @@ npm run build
 
 ## Home Assistant Installation
 
-### Via HACS (recommended)
+### Custom Component (backend integration)
 
-1. Open HACS → Integrations
-2. Click "Custom repositories"
-3. Add: `https://github.com/JoeMighty/STRM` (category: Integration)
-4. Install "STRM Weather"
-5. Restart Home Assistant
-6. Go to **Settings → Devices & Services → Add Integration → STRM Weather**
-7. Enter your location name, latitude, and longitude
+**Via HACS:**
+1. Open HACS → Integrations → ⋮ → Custom repositories
+2. Add `https://github.com/JoeMighty/STRM` (category: Integration)
+3. Install "STRM Weather" → Restart HA
+4. Go to **Settings → Devices & Services → Add Integration → STRM Weather**
+5. Enter your location name, latitude, and longitude
 
-### Manual Installation
+**Manual:**
+1. Copy `home-assistant/custom_components/strm/` → your HA `custom_components/` directory
+2. Restart HA → add via Settings → Devices & Services
 
-1. Copy `home-assistant/custom_components/strm/` to your HA `custom_components/` directory
-2. Restart Home Assistant
-3. Add via Settings → Devices & Services
+---
 
-### Configuration
+### Lovelace Card (STRM animated widget)
+
+The Lovelace card embeds the STRM animated weather widget directly in your dashboard.
+
+**Manual installation:**
+1. Copy `home-assistant/www/strm-weather-card.js` → your HA `www/` directory
+   (e.g. `/config/www/strm-weather-card.js`)
+2. In HA go to **Settings → Dashboards → ⋮ → Resources**
+3. Add resource: `/local/strm-weather-card.js` (type: JavaScript module)
+4. Reload the browser
+
+**Card configuration:**
 
 ```yaml
-# In your Lovelace dashboard
-type: weather-forecast
-entity: weather.strm_my_location
-show_forecast: true
+type: custom:strm-weather-card
+lat: 52.58
+lon: -1.98
+name: Walsall
+units: metric   # metric | imperial
+refresh: 15     # auto-refresh in minutes
+height: 420     # iframe height in px (optional, default 420)
+```
+
+Or link it to a STRM weather entity (auto-reads lat/lon):
+
+```yaml
+type: custom:strm-weather-card
+entity: weather.strm_52_58__1_98
+height: 420
 ```
 
 ---
