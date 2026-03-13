@@ -1,98 +1,115 @@
-# STRM — Animated Weather App
+<div align="center">
 
-> A dark-mode-only animated weather web app with embeddable widgets and Home Assistant integration.
+# ☁️ STRM
 
-**Live Demo**: [https://joemighty.github.io/STRM](https://joemighty.github.io/STRM)
+### Animated Weather App
+
+[![Deploy](https://github.com/JoeMighty/STRM/actions/workflows/deploy.yml/badge.svg)](https://github.com/JoeMighty/STRM/actions/workflows/deploy.yml)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white&style=flat-square)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white&style=flat-square)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+A dark-mode-only animated weather web app with embeddable widgets and Home Assistant integration.
+No API key required.
+
+**[Live Demo →](https://joemighty.github.io/STRM)**
+
+</div>
+
+---
+
+## Screenshots
+
+<div align="center">
+
+![Desktop](docs/screenshots/desktop.png)
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/mobile.png" width="320" alt="Mobile view"/></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Mobile (390px)</em></td>
+  </tr>
+</table>
+
+</div>
 
 ---
 
 ## Features
 
-- **Auto-detect location** on first load
-- **Multi-location support** (up to 5) — add, remove, switch
-- **Current weather**: temperature, feels like, humidity, wind, pressure, precipitation
-- **7-day forecast** with precipitation probability
+- **Auto-detect location** on first load via browser GPS
+- **Multi-location support** — add, remove, switch up to 5 locations
+- **Current weather** — temperature, feels like, humidity, wind, pressure, precipitation, AQI
+- **7-day forecast** with precipitation probability and temp range bar
 - **8 animated weather backgrounds** — Rain, Snow, Stormy, Sunny, Cloudy, Partly Cloudy, Windy, Foggy
 - **Celsius / Fahrenheit toggle**
-- **Air Quality Index** (AQI) display
 - **Embeddable widget generator** with iframe embed code
 - **Home Assistant integration** — custom weather entity + Lovelace card
-- No API key required — powered by [Open-Meteo](https://open-meteo.com/)
 
 ---
 
 ## Tech Stack
 
-- React 18 + Vite
-- Tailwind CSS (dark mode only)
-- Zustand (state management)
-- Canvas API + CSS animations (60fps)
-- Open-Meteo API (free, unlimited)
+| | |
+|---|---|
+| **Frontend** | React 18 + Vite |
+| **Styling** | Tailwind CSS (dark mode only) |
+| **State** | Zustand with localStorage persistence |
+| **Animations** | Canvas API + CSS (60fps) |
+| **Weather API** | [Open-Meteo](https://open-meteo.com/) — free, unlimited, no key |
 
 ---
 
-## Development Setup
+## Development
 
 ```bash
-# Clone the repo
 git clone https://github.com/JoeMighty/STRM.git
 cd STRM
-
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev       # http://localhost:5173/STRM/
+npm run build     # production build → dist/
 ```
 
 ---
 
-## Widget Embed Guide
+## Widget Embed
 
-1. Open the app and click the `</>` icon in the header
-2. Select a location and size preset
-3. Copy the generated `<iframe>` code
-4. Paste into any website
+Click the `</>` icon in the header to open the widget generator, pick a size preset, and copy the iframe code.
 
-**Example**:
+**Example:**
 ```html
 <iframe
-  src="https://joemighty.github.io/STRM/widget.html?lat=52.58&lon=-1.98&name=Walsall&refresh=15"
-  width="400"
-  height="300"
-  frameborder="0"
-  style="border-radius: 8px;"
+  src="https://joemighty.github.io/STRM/widget.html?lat=51.51&lon=-0.13&name=London&refresh=15"
+  width="400" height="300" frameborder="0"
+  style="border-radius:8px;"
   title="STRM Weather Widget"
 ></iframe>
 ```
 
-**Widget URL Parameters**:
+**URL Parameters:**
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `lat` | Latitude (required) | — |
 | `lon` | Longitude (required) | — |
-| `name` | Location display name | `Weather` |
+| `name` | Display name | `Weather` |
 | `units` | `metric` or `imperial` | `metric` |
-| `refresh` | Auto-refresh in minutes (min 5) | `15` |
-
-**Minimum sizes**: 200×200px
+| `refresh` | Auto-refresh interval in minutes | `15` |
 
 ---
 
-## Home Assistant Installation
+## Home Assistant
 
-### Custom Component (backend integration)
+### Custom Component
 
 **Via HACS:**
-1. Open HACS → Integrations → ⋮ → Custom repositories
+1. HACS → Integrations → ⋮ → Custom repositories
 2. Add `https://github.com/JoeMighty/STRM` (category: Integration)
 3. Install "STRM Weather" → Restart HA
-4. Go to **Settings → Devices & Services → Add Integration → STRM Weather**
-5. Enter your location name, latitude, and longitude
+4. Settings → Devices & Services → Add Integration → **STRM Weather**
 
 **Manual:**
 1. Copy `home-assistant/custom_components/strm/` → your HA `custom_components/` directory
@@ -100,73 +117,50 @@ npm run build
 
 ---
 
-### Lovelace Card (STRM animated widget)
+### Lovelace Card
 
-The Lovelace card embeds the STRM animated weather widget directly in your dashboard.
+The animated STRM widget embedded directly in your dashboard.
 
-**Manual installation:**
-1. Copy `home-assistant/www/strm-weather-card.js` → your HA `www/` directory
-   (e.g. `/config/www/strm-weather-card.js`)
-2. In HA go to **Settings → Dashboards → ⋮ → Resources**
-3. Add resource: `/local/strm-weather-card.js` (type: JavaScript module)
-4. Reload the browser
+**Installation:**
+1. Copy `home-assistant/www/strm-weather-card.js` → `/config/www/`
+2. Settings → Dashboards → ⋮ → Resources → add `/local/strm-weather-card.js` (JavaScript module)
+3. Reload the browser
 
-**Card configuration:**
-
+**Configuration:**
 ```yaml
 type: custom:strm-weather-card
-lat: 52.58
-lon: -1.98
-name: Walsall
-units: metric   # metric | imperial
-refresh: 15     # auto-refresh in minutes
-height: 420     # iframe height in px (optional, default 420)
+lat: 51.51
+lon: -0.13
+name: London
+units: metric    # metric | imperial
+refresh: 15      # auto-refresh in minutes
+height: 420      # iframe height in px (default: 420)
 ```
 
-Or link it to a STRM weather entity (auto-reads lat/lon):
-
+Or link to a STRM weather entity to auto-read coordinates:
 ```yaml
 type: custom:strm-weather-card
-entity: weather.strm_52_58__1_98
-height: 420
+entity: weather.strm_51_51__0_13
 ```
 
 ---
 
 ## Color Palette
 
-| Name | Hex |
-|------|-----|
-| Dark Navy | `#0A0618` |
-| Primary Purple | `#5601D6` |
-| Neon Green | `#17EC1C` |
-| Mint Green | `#DAE9DF` |
-| Alert Red | `#F70D0D` |
-
----
-
-## Performance Targets
-
-- First Contentful Paint < 1.5s
-- Time to Interactive < 3.5s
-- Animation Frame Rate: 60fps
-- Bundle Size: ~187KB JS (59KB gzipped)
-- Lighthouse Score: 90+
-
----
-
-## Contributing
-
-Pull requests welcome. Please follow the existing code style and include credits.
+| Swatch | Name | Hex |
+|--------|------|-----|
+| ![#0A0618](https://placehold.co/16x16/0A0618/0A0618.png) | Dark Navy | `#0A0618` |
+| ![#5601D6](https://placehold.co/16x16/5601D6/5601D6.png) | Primary Purple | `#5601D6` |
+| ![#17EC1C](https://placehold.co/16x16/17EC1C/17EC1C.png) | Neon Green | `#17EC1C` |
+| ![#DAE9DF](https://placehold.co/16x16/DAE9DF/DAE9DF.png) | Mint Green | `#DAE9DF` |
+| ![#F70D0D](https://placehold.co/16x16/F70D0D/F70D0D.png) | Alert Red | `#F70D0D` |
 
 ---
 
 ## Credits
 
-Created by [Jobin Bennykutty](https://github.com/JoeMighty/)
-
-Powered by [Open-Meteo](https://open-meteo.com/) — no API key required.
+Created by [Jobin Bennykutty](https://github.com/JoeMighty/) · Powered by [Open-Meteo](https://open-meteo.com/)
 
 ## License
 
-MIT License — see LICENSE file for details.
+[MIT](LICENSE)
