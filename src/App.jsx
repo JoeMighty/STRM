@@ -187,8 +187,7 @@ export default function App() {
             className="hover:text-mint-green transition-colors"
           >
             Open-Meteo
-          </a>{' '}
-          (no API key required)
+          </a>
         </p>
       </footer>
     </div>
